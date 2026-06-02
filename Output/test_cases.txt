@@ -1,1 +1,105 @@
-Placeholder for test cases.
+Test Cases
+
+Test number 1
+Action Startup measurement
+Input or request Run program
+Expected result Displays measurement hex code
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_01_measurement.png
+
+Test number 2
+Action Normal print allowed
+Input or request AH 09h with normal string
+Expected result Gateway forwards request and prints string
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_02_normal_print.png
+
+Test number 3
+Action Sensitive message masked
+Input or request AH 09h with SECRET in string
+Expected result Gateway prints REDACTED instead of string
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_03_masking.png
+
+Test number 4
+Action Print character allowed
+Input or request AH 02h
+Expected result Gateway prints the single character
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_04_print_char.png
+
+Test number 5
+Action File creation denied
+Input or request AH 3Ch
+Expected result Gateway blocks request
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_05_file_create.png
+
+Test number 6
+Action Write request approval required and blocked
+Input or request AH 40h
+Expected result Gateway blocks request due to approval policy
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_06_file_write.png
+
+Test number 7
+Action Unknown service denied
+Input or request AH 99h
+Expected result Gateway blocks request
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_07_unknown.png
+
+Test number 8
+Action Audit log entry recorded
+Input or request Execute any request
+Expected result Log memory records the decision
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_08_log.png
+
+Test number 9
+Action Hash chain updated
+Input or request Execute multiple requests
+Expected result Previous hash variables update properly
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_09_hash.png
+
+Test number 10
+Action Tamper simulation
+Input or request Call SimulateTamper
+Expected result Simulates an integrity violation
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_10_tamper.png
+
+Test number 11
+Action Self check detects tamper
+Input or request Policy table checksum verified
+Expected result Tamper detected message prints
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_11_self_check.png
+
+Test number 12
+Action Fail closed blocks protected request
+Input or request AH 09h after tamper
+Expected result Prints fail closed block message
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_12_fail_closed.png
+
+Test number 13
+Action Safe exit works
+Input or request AH 4Ch after tamper
+Expected result Program terminates normally
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_13_exit.png

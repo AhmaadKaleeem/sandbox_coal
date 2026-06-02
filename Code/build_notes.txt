@@ -1,1 +1,57 @@
-Placeholder for build notes.
+# Build and Execution Notes
+
+## Environment and Toolchain
+- **Platform**: EMU8086 / TASM / 8086 Assembly
+- **No Irvine64**: Continuing with 16-bit 8086 assembly. Do not force Irvine64 unless explicitly required for lab execution.
+- **Lab Compatibility**: The code must be tested and confirmed to run correctly on the lab systems before final submission.
+
+## Code Structure Guidelines (Teacher Enforced)
+1. **Location**: All raw assembly files (`.asm`) and included library files (`.inc`) MUST remain inside this `Code` directory.
+2. **Architecture**: Implement the project strictly using modular, procedure-based structures. Avoid jumping in spaghetti code.
+3. **Documentation**: Every procedure and major logic jump must be well-commented for grading evaluation.
+4. **Agent Skills**: Development must utilize the local skills `.agents/.skills/software-engineer` (for implementation, structure, review) and `.agents/.skills/technical-writer` (for reporting and documentation) when available.
+
+## Pre-Submission Verification Steps
+- Ensure no orphaned files exist outside the 4 mandatory folders (`Code`, `Report`, `Output`, `Analysis`). 
+- If using `Docs` currently, ensure it is excluded from the final ZIP or merged correctly into `Report`.
+- Confirm `Output/` folder is populated with screenshots and documented execution trace scenarios.
+- Confirm `Analysis/` folder contains instruction count, memory usage, sandboxed vs native execution, log memory overhead, and checksum overhead benchmarks.
+- Output Zip naming format: `COAL_Project_GroupNo_Section.zip`
+- Submit via GitHub and Google Classroom (GCR).
+
+## Final Build and Run Instructions
+
+### EMU8086
+1. Open `sandbox.asm`
+2. Click Compile
+3. Click Emulate
+4. Click Run
+5. Capture screenshots as the program executes
+
+Expected output sequence:
+- Startup measurement shown as four hex digits
+- Normal print forwarded and displayed
+- Sensitive print masked as [REDACTED]
+- Print character forwarded
+- File create request blocked
+- Write request blocked as approval required
+- Unknown service blocked
+- Audit log entries recorded
+- Tamper simulation detects mismatch
+- Fail closed mode enabled
+- Protected request after tamper blocked
+- Program exits safely
+
+### TASM with DOSBox
+```
+tasm sandbox.asm
+tlink sandbox.obj
+sandbox.exe
+```
+
+Note: Assemble sandbox.asm only. Do not assemble policy.inc, logger.inc, or checksum.inc directly. They are included automatically by sandbox.asm.
+
+## Submission Reminder
+Zip only the Code, Report, Output, and Analysis folders.
+Name the ZIP file: COAL_Project_GroupNo_Section.zip
+Submit via GitHub and Google Classroom.
