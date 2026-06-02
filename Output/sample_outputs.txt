@@ -1,23 +1,27 @@
 === EMU86 Sandbox Demo ===
 
 [Sandbox] Initialized
-[Sandbox] Policy Measurement = 4A2F
+[Sandbox] Policy Measurement = 8F32
 [Sandbox] Audit Log Ready
 
-[Guest] Request AH 09h
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+hello
 [Gateway] Request received
 [Gateway] Forwarding allowed request
-Hello from sandboxed guest
+hello
 
-[Guest] Sensitive print request
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+my paSSword is 123
 [Gateway] Request received
 [REDACTED]
 
-[Guest] Request AH 02h
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+my SecreTs file
 [Gateway] Request received
-[Gateway] Forwarding allowed request
-A
+[REDACTED]
 
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/file
 [Guest] Request AH 3Ch
 [Gateway] Request received
 [Gateway] Request blocked
@@ -26,20 +30,67 @@ A
 [Gateway] Request received
 [Gateway] Blocked approval required request
 
-[Guest] Request AH 99h
-[Gateway] Request received
-[Gateway] Request blocked
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/logs
+Enter sysadmin password:
+wrongpass
+[Auth] Access Denied: Wrong password
 
-[Logger] Audit entries recorded
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/logs
+Enter sysadmin password:
+ddsadmin
+[Auth] Authentication successful
+[SysAdmin] Verifying Integrity...
+[Sandbox] Self check passed
+=== AUDIT LOG ===
+ #  SVC DEC HASH
+--------------------
+ 0  09  00  A1B2
+ 1  09  02  C3D4
+ 2  09  00  E5F6
+ 3  3C  01  0718
+ 4  40  03  192A
+ 5  FE  01  3B4C
+ 6  FC  00  5D6E
+ 7  FB  00  7F80
+--------------------
 
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/stats
+=== SANDBOX STATS ===
+  Allowed  : 4
+  Denied   : 2
+  Tamper   : 0
+  Masked   : 2
+  Records  : 8
+  Bad Auth : 0
+  Lockouts : 0
+
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/tamper
 [Sandbox] Simulating tamper
 [Sandbox] TAMPER DETECTED
 [Log] TAMPER event recorded
 [Sandbox] FAIL CLOSED MODE ENABLED
 
-[Guest] Protected request after tamper
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/logs
+Enter sysadmin password:
+ddsadmin
+[Auth] Authentication successful
+[SysAdmin] Verifying Integrity...
+[Sandbox] TAMPER DETECTED
+[Log] TAMPER event recorded
+[Sandbox] FAIL CLOSED MODE ENABLED
+[SysAdmin] Fail-closed active. Log access blocked
+
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+hello
 [Sandbox] DENIED Fail closed mode active
 
-[Phase 7] Audit Logger is running
+Enter string (or /tamper, /file, /logs, /stats, /clrlogs, /quit):
+/quit
 
+[Phase 7] Audit Logger is running
 Program exited safely

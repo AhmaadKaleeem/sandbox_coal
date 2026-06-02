@@ -3,103 +3,119 @@ Test Cases
 Test number 1
 Action Startup measurement
 Input or request Run program
-Expected result Displays measurement hex code
+Expected result Displays four digit hex policy measurement
 Actual result placeholder
 Pass or fail placeholder
 Screenshot name screenshot_01_measurement.png
 
 Test number 2
-Action Normal print allowed
-Input or request AH 09h with normal string
-Expected result Gateway forwards request and prints string
+Action Normal string allowed
+Input or request Type: hello
+Expected result Gateway forwards request and prints the string
 Actual result placeholder
 Pass or fail placeholder
 Screenshot name screenshot_02_normal_print.png
 
 Test number 3
-Action Sensitive message masked
-Input or request AH 09h with SECRET in string
-Expected result Gateway prints REDACTED instead of string
+Action Sensitive keyword masked (exact lowercase)
+Input or request Type: my secret word
+Expected result Gateway prints REDACTED instead of the string
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_03_masking.png
+Screenshot name screenshot_03_masking_lower.png
 
 Test number 4
-Action Print character allowed
-Input or request AH 02h
-Expected result Gateway prints the single character
+Action Sensitive keyword masked (mixed case)
+Input or request Type: paSSword or SecreTs
+Expected result Gateway folds input to lowercase then detects keyword and prints REDACTED
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_04_print_char.png
+Screenshot name screenshot_04_masking_mixedcase.png
 
 Test number 5
-Action File creation denied
-Input or request AH 3Ch
-Expected result Gateway blocks request
+Action File creation denied via /file command
+Input or request Type: /file
+Expected result Gateway blocks AH 3Ch request and prints blocked message
 Actual result placeholder
 Pass or fail placeholder
 Screenshot name screenshot_05_file_create.png
 
 Test number 6
-Action Write request approval required and blocked
-Input or request AH 40h
-Expected result Gateway blocks request due to approval policy
+Action Write request approval required via /file command
+Input or request Type: /file
+Expected result Gateway blocks AH 40h request and prints approval required message
 Actual result placeholder
 Pass or fail placeholder
 Screenshot name screenshot_06_file_write.png
 
 Test number 7
-Action Unknown service denied
-Input or request AH 99h
-Expected result Gateway blocks request
+Action Admin login with wrong password
+Input or request Type: /logs then enter wrong password
+Expected result Prints Access Denied. Failed attempt counter increments.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_07_unknown.png
+Screenshot name screenshot_07_wrong_password.png
 
 Test number 8
-Action Audit log entry recorded
-Input or request Execute any request
-Expected result Log memory records the decision
+Action Admin lockout after three failures
+Input or request Type: /logs three times with wrong password each time
+Expected result Prints SECURITY ALERT Admin access locked. Further /logs blocked.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_08_log.png
+Screenshot name screenshot_08_lockout.png
 
 Test number 9
-Action Hash chain updated
-Input or request Execute multiple requests
-Expected result Previous hash variables update properly
+Action Admin login with correct password and log display
+Input or request Type: /logs then enter ddsadmin
+Expected result Authentication succeeds. Integrity check passes. Audit log table prints.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_09_hash.png
+Screenshot name screenshot_09_log_display.png
 
 Test number 10
-Action Tamper simulation
-Input or request Call SimulateTamper
-Expected result Simulates an integrity violation
+Action Stats display
+Input or request Type: /stats
+Expected result Prints all seven counters including allowed, denied, masked, tamper, records, bad auth, lockouts.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_10_tamper.png
+Screenshot name screenshot_10_stats.png
 
 Test number 11
-Action Self check detects tamper
-Input or request Policy table checksum verified
-Expected result Tamper detected message prints
+Action Tamper simulation
+Input or request Type: /tamper
+Expected result Tamper detected message prints, fail closed mode enabled message prints.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_11_self_check.png
+Screenshot name screenshot_11_tamper.png
 
 Test number 12
-Action Fail closed blocks protected request
-Input or request AH 09h after tamper
-Expected result Prints fail closed block message
+Action Fail closed blocks normal request
+Input or request Type any string after /tamper
+Expected result Prints DENIED Fail closed mode active
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_12_fail_closed.png
+Screenshot name screenshot_12_fail_closed_block.png
 
 Test number 13
-Action Safe exit works
-Input or request AH 4Ch after tamper
-Expected result Program terminates normally
+Action Log access blocked after tamper
+Input or request Type: /logs then enter ddsadmin after /tamper
+Expected result Authentication succeeds. Integrity check detects tamper. Log access blocked message prints.
 Actual result placeholder
 Pass or fail placeholder
-Screenshot name screenshot_13_exit.png
+Screenshot name screenshot_13_log_blocked_after_tamper.png
+
+Test number 14
+Action Clear logs command
+Input or request Type: /clrlogs then enter ddsadmin
+Expected result Log buffer zeroed. Counters reset. Cleared message prints.
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_14_clrlogs.png
+
+Test number 15
+Action Safe exit
+Input or request Type: /quit
+Expected result Program exits normally with exit message.
+Actual result placeholder
+Pass or fail placeholder
+Screenshot name screenshot_15_exit.png
